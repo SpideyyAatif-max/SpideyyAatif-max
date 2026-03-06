@@ -6,9 +6,7 @@
 <img src="https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif" width="500">
 </p>
 
-<p align="center">
-<img src="https://share.google/I0jnu9Q5uI5c8PWfl" width="500">
-</p>
+
 # 🧠 Currently Learning
 
 - 🚀 Advanced Programming
@@ -37,3 +35,6 @@
 ---
 
 ⭐ **Thanks for visiting my profile!**
+<p align = "center">
+<img src="https://media.giphy.com/media/3lvqNXheb679S/giphy.gif" width="500">
+</p>
