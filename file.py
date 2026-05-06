@@ -433,6 +433,374 @@ print("""
 """)
 
 ------------------------------------------------------------------------------------------------------------------
+unsupervised
+# ============================================================
+# House Price Prediction
+# Decision Tree, KNN, and Linear Regression
+# ============================================================
+
+import pandas as pd
+import numpy as np
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.linear_model import LinearRegression
+
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+
+# ============================================================
+# PART 1 - DATA PREPROCESSING
+# ============================================================
+
+# Load dataset
+df = pd.read_csv("house_price.csv")   # Change file name if needed
+
+print("Dataset loaded successfully.")
+
+
+# ------------------------------------------------------------
+# 1. Dataset Overview
+# ------------------------------------------------------------
+
+print("\nDataset Shape:")
+print(df.shape)
+
+print("\nTotal Rows:", df.shape[0])
+print("Total Columns:", df.shape[1])
+
+print("\nFirst Five Rows:")
+print(df.head())
+
+print("\nData Types:")
+print(df.dtypes)
+
+print("\nStatistical Summary:")
+print(df.describe())
+
+
+# ------------------------------------------------------------
+# 2. Missing Values
+# ------------------------------------------------------------
+
+print("\nMissing Values Before Handling:")
+missing_values = df.isnull().sum()
+print(missing_values[missing_values > 0])
+
+# Fill missing numerical values with median
+numeric_cols = df.select_dtypes(include=["int64", "float64"]).columns
+
+for col in numeric_cols:
+    if df[col].isnull().sum() > 0:
+        df[col] = df[col].fillna(df[col].median())
+
+print("\nMissing Values After Handling:")
+print(df.isnull().sum().sum())
+
+
+# ------------------------------------------------------------
+# 3. Drop HouseID if present
+# ------------------------------------------------------------
+
+if "HouseID" in df.columns:
+    df = df.drop("HouseID", axis=1)
+    print("\nHouseID column dropped.")
+
+
+# ------------------------------------------------------------
+# 4. Confirm Target Variable
+# ------------------------------------------------------------
+
+target = "SalePrice"
+
+if target not in df.columns:
+    raise ValueError("SalePrice column not found in dataset.")
+
+print("\nTarget Variable:", target)
+
+
+# ------------------------------------------------------------
+# 5. Histograms for Numerical Features
+# ------------------------------------------------------------
+
+numerical_cols = df.select_dtypes(include=["int64", "float64"]).columns
+
+for col in numerical_cols:
+    plt.figure(figsize=(7, 4))
+    sns.histplot(df[col], kde=True)
+    plt.title(f"Distribution of {col}")
+    plt.xlabel(col)
+    plt.ylabel("Frequency")
+    plt.show()
+
+
+# ------------------------------------------------------------
+# 6. Correlation Heatmap
+# ------------------------------------------------------------
+
+plt.figure(figsize=(14, 10))
+correlation_matrix = df.corr(numeric_only=True)
+
+sns.heatmap(
+    correlation_matrix,
+    annot=True,
+    cmap="coolwarm",
+    fmt=".2f"
+)
+
+plt.title("Correlation Heatmap")
+plt.show()
+
+
+# ------------------------------------------------------------
+# 7. Top 3 Features Correlated with SalePrice
+# ------------------------------------------------------------
+
+saleprice_corr = correlation_matrix[target].drop(target).abs().sort_values(ascending=False)
+
+top_3_features = saleprice_corr.head(3).index.tolist()
+
+print("\nTop 3 Features Most Correlated with SalePrice:")
+print(top_3_features)
+
+print("\nCorrelation Values:")
+print(correlation_matrix[target][top_3_features])
+
+
+# ------------------------------------------------------------
+# 8. Scatter Plots for Top 3 Features
+# ------------------------------------------------------------
+
+for col in top_3_features:
+    plt.figure(figsize=(7, 4))
+    sns.scatterplot(data=df, x=col, y=target)
+    plt.title(f"{col} vs SalePrice")
+    plt.xlabel(col)
+    plt.ylabel("SalePrice")
+    plt.show()
+
+
+# ------------------------------------------------------------
+# 9. Boxplots for Outlier Detection
+# ------------------------------------------------------------
+
+for col in top_3_features + [target]:
+    plt.figure(figsize=(7, 4))
+    sns.boxplot(data=df, y=col)
+    plt.title(f"Boxplot of {col}")
+    plt.ylabel(col)
+    plt.show()
+
+
+# ------------------------------------------------------------
+# 10. Prepare Features and Target
+# ------------------------------------------------------------
+
+X = df.drop(target, axis=1)
+y = df[target]
+
+# Keep only numerical features
+X = X.select_dtypes(include=["int64", "float64"])
+
+print("\nFeature Matrix Shape:", X.shape)
+print("Target Vector Shape:", y.shape)
+
+
+# ------------------------------------------------------------
+# 11. Feature Scaling
+# ------------------------------------------------------------
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+X_scaled = pd.DataFrame(X_scaled, columns=X.columns)
+
+print("\nFeature scaling completed using StandardScaler.")
+
+
+# ============================================================
+# PART 2 - MODEL TRAINING
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. Train-Test Split: 75% Training, 25% Testing
+# ------------------------------------------------------------
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X_scaled,
+    y,
+    test_size=0.25,
+    random_state=42
+)
+
+print("\nTraining Set Size:", X_train.shape)
+print("Testing Set Size:", X_test.shape)
+
+
+# ------------------------------------------------------------
+# 2. Define Models
+# ------------------------------------------------------------
+
+knn_model = KNeighborsRegressor(
+    n_neighbors=5,
+    metric="euclidean"
+)
+
+decision_tree_model = DecisionTreeRegressor(
+    max_depth=5,
+    random_state=42
+)
+
+linear_model = LinearRegression(
+    fit_intercept=True
+)
+
+
+# ------------------------------------------------------------
+# 3. Train Models
+# ------------------------------------------------------------
+
+knn_model.fit(X_train, y_train)
+decision_tree_model.fit(X_train, y_train)
+linear_model.fit(X_train, y_train)
+
+print("\nAll models trained successfully.")
+
+
+# ------------------------------------------------------------
+# 4. Make Predictions
+# ------------------------------------------------------------
+
+knn_predictions = knn_model.predict(X_test)
+tree_predictions = decision_tree_model.predict(X_test)
+linear_predictions = linear_model.predict(X_test)
+
+
+# ============================================================
+# PART 3 - MODEL EVALUATION
+# ============================================================
+
+def evaluate_model(model_name, y_true, y_pred):
+    """
+    This function calculates regression evaluation metrics.
+    """
+    
+    mae = mean_absolute_error(y_true, y_pred)
+    mse = mean_squared_error(y_true, y_pred)
+    rmse = np.sqrt(mse)
+    r2 = r2_score(y_true, y_pred)
+    
+    return {
+        "Model": model_name,
+        "MAE": mae,
+        "MSE": mse,
+        "RMSE": rmse,
+        "R2 Score": r2
+    }
+
+
+# Evaluate all models
+results = []
+
+results.append(evaluate_model("KNN Regressor", y_test, knn_predictions))
+results.append(evaluate_model("Decision Tree Regressor", y_test, tree_predictions))
+results.append(evaluate_model("Linear Regression", y_test, linear_predictions))
+
+results_df = pd.DataFrame(results)
+
+print("\nModel Evaluation Results:")
+print(results_df)
+
+
+# ------------------------------------------------------------
+# 1. Sort Models by R2 Score
+# ------------------------------------------------------------
+
+results_sorted = results_df.sort_values(by="R2 Score", ascending=False)
+
+print("\nModels Sorted by R2 Score:")
+print(results_sorted)
+
+
+# ------------------------------------------------------------
+# 2. Best Model
+# ------------------------------------------------------------
+
+best_model = results_sorted.iloc[0]
+
+print("\nBest Performing Model:")
+print(best_model)
+
+
+# ------------------------------------------------------------
+# 3. Bar Plot Comparison
+# ------------------------------------------------------------
+
+plt.figure(figsize=(8, 5))
+sns.barplot(data=results_df, x="Model", y="R2 Score")
+plt.title("Model Comparison Based on R2 Score")
+plt.xlabel("Model")
+plt.ylabel("R2 Score")
+plt.xticks(rotation=30)
+plt.show()
+
+
+plt.figure(figsize=(8, 5))
+sns.barplot(data=results_df, x="Model", y="RMSE")
+plt.title("Model Comparison Based on RMSE")
+plt.xlabel("Model")
+plt.ylabel("RMSE")
+plt.xticks(rotation=30)
+plt.show()
+
+
+# ------------------------------------------------------------
+# 4. Actual vs Predicted Plot for Each Model
+# ------------------------------------------------------------
+
+prediction_data = {
+    "KNN Regressor": knn_predictions,
+    "Decision Tree Regressor": tree_predictions,
+    "Linear Regression": linear_predictions
+}
+
+for model_name, predictions in prediction_data.items():
+    plt.figure(figsize=(7, 5))
+    sns.scatterplot(x=y_test, y=predictions)
+    plt.xlabel("Actual SalePrice")
+    plt.ylabel("Predicted SalePrice")
+    plt.title(f"Actual vs Predicted SalePrice - {model_name}")
+    
+    min_value = min(y_test.min(), predictions.min())
+    max_value = max(y_test.max(), predictions.max())
+    plt.plot([min_value, max_value], [min_value, max_value], linestyle="--")
+    
+    plt.show()
+
+
+# ============================================================
+# FINAL SUMMARY
+# ============================================================
+
+print("\nFinal Summary:")
+print("""
+1. The dataset was loaded and basic information was displayed.
+2. Missing numerical values were handled using median imputation.
+3. HouseID was dropped because it is only an identifier.
+4. Histograms, heatmap, scatter plots, and boxplots were created.
+5. Top features correlated with SalePrice were identified.
+6. Data was split into 75% training and 25% testing sets.
+7. KNN, Decision Tree, and Linear Regression models were trained.
+8. Models were evaluated using MAE, MSE, RMSE, and R2 Score.
+9. The best model was selected based on the highest R2 Score and lowest error values.
+""")
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
 # Smart Traffic Incident Detection - Bayesian Network using pgmpy
 
 from pgmpy.models import DiscreteBayesianNetwork
