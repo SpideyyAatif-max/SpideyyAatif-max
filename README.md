@@ -1,6 +1,6 @@
 <p align = "center">
-<img src="https://ishan-rest.vercel.app/svg/banner/dev/SpideyyAatif-max" width = "850">
-<img src="https://media.tenor.com/maST0r6HFwgAAAAi/moon-phases-moon.gif" width = "120">
+<img src="https://ishan-rest.vercel.app/svg/banner/dev/SpideyyAatif-max" width = "790">
+<img src="https://media.tenor.com/maST0r6HFwgAAAAi/moon-phases-moon.gif" width = "110">
 </p>
 
 
@@ -54,6 +54,6 @@ Python, Machine Learning, Deep Learning, Natural Language Processing (NLP), Larg
 
 ⭐ **Thanks for visiting my profile!**
 <p align = "center">
-<img src="https://media.giphy.com/media/3lvqNXheb679S/giphy.gif" width="500">
-<img src="https://media.tenor.com/0aKZn1alLRQAAAAC/la-la-land-ending.gif" width="500">
+
+<img src="https://media.tenor.com/09CUh1N1lT0AAAAd/tom-hiddleston-loki.gif" width="250">
 </p>
