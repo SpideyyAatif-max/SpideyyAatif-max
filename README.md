@@ -8,8 +8,10 @@
 
 
 <p align="center">
-<img src="https://share.google/CPXGYBMHDsQNSs7zV" width="500">
+<img src="https://media.tenor.com/Px02OJRrKGMAAAAi/miles-morales-run.gif" width="500">
 </p>
+
+
 # 🧠 Currently Learning
 
 - 🚀 Advanced Programming
