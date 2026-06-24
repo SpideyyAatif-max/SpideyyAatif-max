@@ -14,7 +14,6 @@
 <p align="center">
 </p>
 
-
 # 🛠️ Tech Stack
 <h5>Full Stack Development</h5>
 
@@ -86,9 +85,7 @@ Python, Machine Learning, Deep Learning, Natural Language Processing (NLP), Larg
 </p>
 
 # 💡 Quote
-
 > “Programs must be written for people to read, and only incidentally for machines to execute.” – Harold Abelson
-
 ---
 
 ⭐ **Thanks for visiting my profile!**
