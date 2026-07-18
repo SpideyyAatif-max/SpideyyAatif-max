@@ -84,7 +84,7 @@ Python, Machine Learning, Deep Learning, Natural Language Processing (NLP), Larg
   <img src="https://media.tenor.com/A7imjnI37qUAAAAi/spider-man-web.gif" width="120">
 </p>
 
-# 💡 Quote
+# Quote
 > “Programs must be written for people to read, and only incidentally for machines to execute.” – Harold Abelson
 ---
 
