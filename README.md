@@ -1,4 +1,6 @@
-![Header Banner](https://capsule-render.vercel.app/api?type=waving&color=powderblue&height=200&section=header&text=Welcome!&fontSize=50&fontColor=ffffff)
+
+
+
 <p align = "center">
 <img src="https://ishan-rest.vercel.app/svg/banner/dev/SpideyyAatif-max" width = "790">
 <img src="https://media.tenor.com/maST0r6HFwgAAAAi/moon-phases-moon.gif" width = "110">
@@ -86,9 +88,9 @@ Python, Machine Learning, Deep Learning, Natural Language Processing (NLP), Larg
 </p>
 
 # Quote
+```diff
 > “Programs must be written for people to read, and only incidentally for machines to execute.” – Harold Abelson
----
-
+```
 ⭐ **Thanks for visiting my profile!**
 <p align = "center">
 
