@@ -1,3 +1,7 @@
+body {
+  background-color: powderblue;
+}
+<body>
 <p align = "center">
 <img src="https://ishan-rest.vercel.app/svg/banner/dev/SpideyyAatif-max" width = "790">
 <img src="https://media.tenor.com/maST0r6HFwgAAAAi/moon-phases-moon.gif" width = "110">
@@ -93,3 +97,4 @@ Python, Machine Learning, Deep Learning, Natural Language Processing (NLP), Larg
 
 <img src="https://media.tenor.com/09CUh1N1lT0AAAAd/tom-hiddleston-loki.gif" width="250">
 </p>
+</body>
