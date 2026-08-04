@@ -3,14 +3,15 @@
 
 <p align = "center">
 <img src="https://ishan-rest.vercel.app/svg/banner/dev/SpideyyAatif-max" width = "790">
-<img src="https://media.tenor.com/maST0r6HFwgAAAAi/moon-phases-moon.gif" width = "110">
+
 </p>
 
 
 <p align="center">
-<img src="https://media.tenor.com/4DEF84bYG2AAAAAd/stray-programming.gif" width="550">
+<img src="https://media.tenor.com/4DEF84bYG2AAAAAd/stray-programming.gif" width="750">
   
 <img src="https://media.tenor.com/Px02OJRrKGMAAAAi/miles-morales-run.gif" width="80">
+
 </p>
 
 
@@ -39,7 +40,8 @@ AWS, Microsoft Azure, Docker, Kubernetes, CI/CD, Linux, Bash, Infrastructure as 
 Python, Machine Learning, Deep Learning, Natural Language Processing (NLP), Large Language Models (LLMs), Retrieval Augmented Generation (RAG), AI Agents, MLOps
 
 
-# 🛠 Languages and Tools
+# 🛠 Languages and Tools<img src="https://media.tenor.com/A7imjnI37qUAAAAi/spider-man-web.gif" width="80">
+
 
 <p align="left">
 
@@ -84,7 +86,8 @@ Python, Machine Learning, Deep Learning, Natural Language Processing (NLP), Larg
 
 <p align="center">
   <img src="https://komarev.com/ghpvc/?username=SpideyyAatif-max&label=Profile%20views&color=blue&style=for-the-badge" />
-  <img src="https://media.tenor.com/A7imjnI37qUAAAAi/spider-man-web.gif" width="120">
+  
+  <img src="https://media.tenor.com/maST0r6HFwgAAAAi/moon-phases-moon.gif" width = "110">
 </p>
 
 # Quote
